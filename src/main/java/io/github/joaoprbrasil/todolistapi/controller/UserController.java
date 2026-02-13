@@ -1,23 +1,22 @@
 package io.github.joaoprbrasil.todolistapi.controller;
 
 import io.github.joaoprbrasil.todolistapi.model.UserModel;
-import io.github.joaoprbrasil.todolistapi.repository.UserRepository;
+
+import io.github.joaoprbrasil.todolistapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
 
     @Autowired
-    UserRepository repository;
+    private UserService service;
 
     @PostMapping
-    public void save(@RequestBody UserModel user){
-        repository.save(user);
+    public UserModel save(@RequestBody UserModel user){
+        return this.service.save(user);
     }
+
 
 }
