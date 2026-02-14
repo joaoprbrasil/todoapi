@@ -4,6 +4,7 @@ import io.github.joaoprbrasil.todolistapi.model.UserModel;
 
 import io.github.joaoprbrasil.todolistapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,8 +15,8 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public UserModel save(@RequestBody UserModel user){
-        return this.service.save(user);
+    public ResponseEntity<UserModel> save(@RequestBody UserModel user){
+        return service.save(user);
     }
 
 
