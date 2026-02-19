@@ -44,4 +44,26 @@ public class TaskService {
         return tasks;
     }
 
+    public TaskModel update(UUID id, TaskModel taskModel, HttpServletRequest request){
+        Object idUser = request.getAttribute("idUser");
+        taskModel.setIdUser((UUID) idUser);
+        taskModel.setId(id);
+        return this.repository.save(taskModel);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("tasks")
@@ -27,7 +28,12 @@ public class TaskController {
         return service.list(request);
     }
 
-
+    @PutMapping("{id}")
+    public void update(@PathVariable UUID id,
+                       @RequestBody TaskModel taskModel,
+                       HttpServletRequest request){
+        return service.update(id, taskModel, request);
+    }
 
 
 
