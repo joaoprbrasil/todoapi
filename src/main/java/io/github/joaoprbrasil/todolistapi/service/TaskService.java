@@ -2,6 +2,7 @@ package io.github.joaoprbrasil.todolistapi.service;
 
 import io.github.joaoprbrasil.todolistapi.model.TaskModel;
 import io.github.joaoprbrasil.todolistapi.repository.TaskRepository;
+import io.github.joaoprbrasil.todolistapi.utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -45,10 +47,13 @@ public class TaskService {
     }
 
     public TaskModel update(UUID id, TaskModel taskModel, HttpServletRequest request){
-        Object idUser = request.getAttribute("idUser");
-        taskModel.setIdUser((UUID) idUser);
-        taskModel.setId(id);
-        return this.repository.save(taskModel);
+        var idUser = request.getAttribute("idUser");
+
+        var task = this.repository.findById(id).orElse(null);
+
+        Utils.copyNonNullProperties(taskModel, task);
+
+        return this.repository.save(task);
     }
 
 
