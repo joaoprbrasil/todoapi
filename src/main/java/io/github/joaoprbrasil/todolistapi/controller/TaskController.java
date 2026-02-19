@@ -5,6 +5,7 @@ import io.github.joaoprbrasil.todolistapi.service.TaskService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class TaskController {
     private final TaskService service;
 
     @PostMapping
-    public TaskModel save(@RequestBody TaskModel taskModel, HttpServletRequest request){
+    public ResponseEntity save(@RequestBody TaskModel taskModel, HttpServletRequest request){
         return  service.save(taskModel, request);
     }
 
