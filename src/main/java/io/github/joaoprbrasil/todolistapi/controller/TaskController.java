@@ -6,10 +6,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("tasks")
@@ -22,5 +21,22 @@ public class TaskController {
     public ResponseEntity save(@RequestBody TaskModel taskModel, HttpServletRequest request){
         return  service.save(taskModel, request);
     }
+
+    @GetMapping
+    public List<TaskModel> list(HttpServletRequest request){
+        return service.list(request);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

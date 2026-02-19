@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -35,6 +36,12 @@ public class TaskService {
 
         TaskModel task = this.repository.save(taskModel);
         return ResponseEntity.status(HttpStatus.OK).body(task);
+    }
+
+    public List<TaskModel> list(HttpServletRequest request){
+        Object idUser = request.getAttribute("idUser");
+        List<TaskModel> tasks = this.repository.findByIdUser((UUID) idUser);
+        return tasks;
     }
 
 }
