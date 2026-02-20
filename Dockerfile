@@ -1,15 +1,15 @@
-FROM ubuntu:latest AS build
+FROM maven:3.9.9-eclipse-temurin-21 AS builder
 
-RUN apt-get update
-RUN apt-get install openjdk-25-jdk -y
 
+WORKDIR /app
 COPY . .
+RUN mvn clean package -DskipTests
 
-RUN apt-get install maven -y
-RUN mvn clean install
+FROM eclipse-temurin:25-jre-alpine
+WORKDIR /app
 
 EXPOSE 8080
 
-COPY --from=build /target/todolistapi-1.0.0.jar app.jar
+COPY --from=builder /app/target/todolistapi-1.0.0.jar app.jar
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+ENTRYPOINT ["java", "-jar", "app.jar"]
