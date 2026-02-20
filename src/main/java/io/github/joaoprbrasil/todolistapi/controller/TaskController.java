@@ -5,6 +5,7 @@ import io.github.joaoprbrasil.todolistapi.service.TaskService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,29 +21,20 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity save(@RequestBody TaskModel taskModel, HttpServletRequest request){
-        return  service.save(taskModel, request);
+        return  ResponseEntity.ok(service.save(taskModel, request));
     }
 
     @GetMapping
-    public List<TaskModel> list(HttpServletRequest request){
-        return service.list(request);
+    public ResponseEntity<List<TaskModel>> list(HttpServletRequest request){
+        return ResponseEntity.ok(service.list(request));
     }
 
     @PutMapping("{id}")
-    public void update(@PathVariable UUID id,
+    public ResponseEntity<TaskModel> update(@PathVariable UUID id,
                        @RequestBody TaskModel taskModel,
                        HttpServletRequest request){
-        return service.update(id, taskModel, request);
+        return ResponseEntity.ok(service.update(id, taskModel, request));
     }
-
-
-
-
-
-
-
-
-
 
 
 }
